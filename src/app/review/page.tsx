@@ -9,19 +9,19 @@ import { getDatabase } from 'firebase/database';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB6tkZjsM5I4OkG8SvCk6v5pyeM6nTzGT4",
-  authDomain: "task-manager-87577.firebaseapp.com",
-  databaseURL: "https://task-manager-87577-default-rtdb.firebaseio.com",
-  projectId: "task-manager-87577",
-  storageBucket: "task-manager-87577.firebasestorage.app",
-  messagingSenderId: "949071438979",
-  appId: "1:949071438979:web:d2a0056c95b9e02e90e7b6",
-  measurementId: "G-HMZ54Z29EZ"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
-let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const db = getDatabase(app);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const database = getDatabase(app);
 
 export default function ReviewPage() {
   const [hasReviewed, setHasReviewed] = useState(false);

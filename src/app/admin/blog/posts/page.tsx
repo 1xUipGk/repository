@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,11 +34,7 @@ export default function BlogPosts() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    loadPosts();
-  }, [selectedStatus, selectedCategory, searchQuery]);
-
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
       const filters: Record<string, any> = {};
       
@@ -63,7 +59,11 @@ export default function BlogPosts() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedStatus, selectedCategory, searchQuery]);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
     setNotification({ message, type });

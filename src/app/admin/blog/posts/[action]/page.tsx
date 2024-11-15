@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -67,15 +67,9 @@ export default function PostEditor() {
   const params = useParams();
   const isEdit = params.action === 'edit';
 
-  useEffect(() => {
-    if (isEdit && params.id) {
-      loadPost(params.id as string);
-    }
-  }, [isEdit, params.id]);
-
-  const loadPost = async (id: string) => {
+  const loadPost = useCallback(async () => {
     try {
-      const response = await getBlogPost(id);
+      const response = await getBlogPost(params.id as string);
       const post = response.data.attributes;
       setForm({
         title: post.title,
@@ -95,7 +89,13 @@ export default function PostEditor() {
     } catch (error) {
       showNotification('فشل تحميل المقال', 'error');
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    if (isEdit) {
+      loadPost();
+    }
+  }, [isEdit, loadPost]);
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
     setNotification({ message, type });

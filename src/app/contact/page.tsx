@@ -4,4 +4,11 @@ export const metadata: Metadata = {
   title: 'تواصل معي'
 };
 
-// ... rest of the page component 
+export default function ContactPage() {
+  return (
+    <div className="contact-container">
+      <h1>تواصل معي</h1>
+      {/* محتوى الصفحة */}
+    </div>
+  );
+} 

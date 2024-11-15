@@ -23,4 +23,8 @@ export async function uploadToImgur(file: File): Promise<string> {
     console.error('Error uploading to Imgur:', error);
     throw error;
   }
+}
+
+export async function uploadImage(file: File): Promise<string> {
+  return uploadToImgur(file);
 } 
