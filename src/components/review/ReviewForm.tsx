@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { db } from '@/app/review/page';
-import { ref, push, set } from 'firebase/database';
+import { getDatabase, ref, push, set } from 'firebase/database';
 import { uploadToImgur } from '@/lib/imgur';
 
 interface ReviewFormProps {

@@ -78,7 +78,7 @@ export default function TestimonialsManagement() {
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [router, loadTestimonials]);
 
   const loadTestimonials = () => {
     const testimonialsRef = ref(db, 'testimonials');

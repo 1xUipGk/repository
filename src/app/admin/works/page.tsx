@@ -76,7 +76,7 @@ export default function WorksManagement() {
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [router, loadWorks]);
 
   const loadWorks = () => {
     const worksRef = ref(db, 'works');
