@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getDatabase, ref, push, set } from 'firebase/database';
-import { uploadToImgur, ImgurResponse } from '@/lib/imgur';
+import { uploadToImgur, ImgurResponse } from '@/utils/imgur';
 
 interface TestimonialData {
   name: FormDataEntryValue | null;
