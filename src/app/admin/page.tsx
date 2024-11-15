@@ -1,7 +1,24 @@
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'لوحة التحكم'
-};
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
-// ... rest of the page component 
+export default function AdminPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push('/admin/login');
+      } else {
+        router.push('/admin/dashboard');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  return null;
+}

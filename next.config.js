@@ -15,6 +15,7 @@ const nextConfig = {
   },
   basePath: process.env.NODE_ENV === 'production' ? '' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? 'https://3lismaeel.xyz' : '',
+  swcMinify: false,
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
