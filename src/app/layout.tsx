@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // التحقق مما إذا كان المسار الحالي هو صفحة إدارة
-  const isAdminPage = children.props?.childProp?.segment === 'admin';
+  const isAdminPage = children?.props?.childProp?.segment === 'admin';
 
   return (
     <html lang="ar" dir="rtl">

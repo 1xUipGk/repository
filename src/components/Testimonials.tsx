@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -134,17 +135,17 @@ export default function Testimonials() {
                   <div className="client-info">
                     <div className="client-avatar">
                       {testimonial.imageUrl ? (
-                        <img src={testimonial.imageUrl} alt={testimonial.name} />
-                      ) : (
-                        <FontAwesomeIcon 
-                          icon={faUser} 
-                          style={{
-                            width: '25px',
-                            height: '25px',
-                            padding: '6px',
-                            color: 'var(--text-secondary)'
-                          }}
+                        <Image
+                          src={testimonial.imageUrl}
+                          alt={testimonial.name}
+                          width={48}
+                          height={48}
+                          className="user-avatar"
                         />
+                      ) : (
+                        <div className="avatar-placeholder">
+                          {testimonial.name[0]}
+                        </div>
                       )}
                     </div>
                     <div className="client-details">
