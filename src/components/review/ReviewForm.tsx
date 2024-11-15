@@ -20,6 +20,12 @@ interface ReviewFormProps {
   onSubmit: (data: TestimonialData) => void;
 }
 
+interface ImgurResponse {
+  data: {
+    link: string;
+  };
+}
+
 export default function ReviewForm({ onSubmit }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,10 +55,15 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
         createdAt: new Date().toISOString()
       };
 
-      const imageFile = (formData.get('clientImage') as File);
+      const imageFile = formData.get('clientImage') as File;
       if (imageFile && imageFile.size > 0) {
-        const imgurData = await uploadToImgur(imageFile);
-        testimonialData.imageUrl = imgurData.data.link;
+        try {
+          const imgurData = await uploadToImgur(imageFile);
+          testimonialData.imageUrl = imgurData.data.link;
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          // يمكنك إضافة معالجة الخطأ هنا، مثل عرض رسالة للمستخدم
+        }
       }
 
       const testimonialsRef = ref(db, 'testimonials');
