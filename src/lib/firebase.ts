@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
+import { initializeApp, FirebaseApp } from 'firebase/app';
+import { getDatabase, Database } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,13 +11,16 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// تهيئة Firebase فقط في جانب العميل
-let app;
-let db;
+let app: FirebaseApp | undefined;
+let database: Database | null = null;
 
 if (typeof window !== 'undefined') {
-  app = initializeApp(firebaseConfig);
-  db = getDatabase(app);
+  try {
+    app = initializeApp(firebaseConfig);
+    database = getDatabase(app);
+  } catch (error) {
+    console.error('Firebase initialization error:', error);
+  }
 }
 
-export { db }; 
+export const db = database; 

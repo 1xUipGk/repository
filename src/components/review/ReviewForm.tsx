@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { ref, push, set } from 'firebase/database';
+import { ref, push, set, Database } from 'firebase/database';
 import { uploadToImgur } from '@/utils/imgur';
 import { db } from '@/lib/firebase';
 
@@ -24,6 +24,7 @@ interface ReviewFormProps {
 export default function ReviewForm({ onSubmit }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const ratingTexts = [
     'بحاجة إلى تحسين',
@@ -36,6 +37,13 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
+
+    if (!db) {
+      setError('لا يمكن الاتصال بقاعدة البيانات');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const form = e.currentTarget;
@@ -52,11 +60,13 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
       const imageFile = formData.get('clientImage') as File;
       if (imageFile && imageFile.size > 0) {
         try {
-          const imgurData: ImgurResponse = await uploadToImgur(imageFile);
+          const imgurData = await uploadToImgur(imageFile);
           testimonialData.imageUrl = imgurData.data.link;
         } catch (error) {
           console.error('Error uploading image:', error);
-          // يمكنك إضافة معالجة الخطأ هنا، مثل عرض رسالة للمستخدم
+          setError('فشل في تحميل الصورة. الرجاء المحاولة مرة أخرى.');
+          setIsSubmitting(false);
+          return;
         }
       }
 
@@ -71,6 +81,7 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
       onSubmit(testimonialData);
     } catch (error) {
       console.error('Error:', error);
+      setError('حدث خطأ أثناء إرسال التقييم. الرجاء المحاولة مرة أخرى.');
     } finally {
       setIsSubmitting(false);
     }
@@ -140,6 +151,12 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
           placeholder="اكتب رأيك وانطباعك عن الخدمة المقدمة..."
         />
       </div>
+
+      {error && (
+        <div className="error-message text-red-500 text-center mb-4">
+          {error}
+        </div>
+      )}
 
       <button 
         type="submit" 
