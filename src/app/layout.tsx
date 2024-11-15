@@ -17,18 +17,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  // استخدام app directory routing
-  const isAdminPage = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
-
+}) {
   return (
     <html lang="ar" dir="rtl">
       <body className={tajawal.className}>
-        {!isAdminPage && <Header />}
-        <main>{children}</main>
-        {!isAdminPage && <Footer />}
+        <div className={`${tajawal.variable} min-h-screen flex flex-col`}>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -1,19 +1,29 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getDatabase, ref, push, set } from 'firebase/database';
 import { uploadToImgur } from '@/lib/imgur';
 
+interface TestimonialData {
+  name: FormDataEntryValue | null;
+  title: FormDataEntryValue | null;
+  rating: number;
+  text: FormDataEntryValue | null;
+  createdAt: string;
+  imageUrl?: string;
+}
+
 interface ReviewFormProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: TestimonialData) => void;
 }
 
 export default function ReviewForm({ onSubmit }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const db = getDatabase();
 
   const ratingTexts = [
     'بحاجة إلى تحسين',
@@ -31,7 +41,7 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
       const form = e.currentTarget;
       const formData = new FormData(form);
       
-      const testimonialData = {
+      const testimonialData: TestimonialData = {
         name: formData.get('name'),
         title: formData.get('title'),
         rating: rating,
@@ -40,7 +50,7 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
       };
 
       const imageFile = (formData.get('clientImage') as File);
-      if (imageFile.size > 0) {
+      if (imageFile && imageFile.size > 0) {
         const imgurData = await uploadToImgur(imageFile);
         testimonialData.imageUrl = imgurData.data.link;
       }
