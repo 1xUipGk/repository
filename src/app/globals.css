@@ -1,21 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './styles/custom.css';
+@import './styles/review.css';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #FF4D00;
+  --text: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --background: #000000;
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --border: rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-tajawal), sans-serif;
 }
 
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+  position: relative;
+  overflow-x: hidden;
+  direction: rtl;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
+    radial-gradient(1px 1px at 20% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
+    radial-gradient(1px 1px at 30% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
+    radial-gradient(1px 1px at 40% 40%, rgba(255, 255, 255, 0.1) 1px, transparent 0),
+    radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 0);
+  background-size: 100% 100%;
+  animation: starsAnimation 100s linear infinite;
+  z-index: -1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 77, 0, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255, 77, 0, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes starsAnimation {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
 }

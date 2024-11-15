@@ -1,101 +1,156 @@
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faHashtag, faFileAlt, faScroll,
+  faUtensils, faIdCard, faBook,
+  faEnvelopeOpen, faAward, faAd,
+  faChevronDown, faChevronUp
+} from '@fortawesome/free-solid-svg-icons';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+
+const services = [
+  {
+    icon: faHashtag,
+    title: 'سوشال ميديا',
+    description: 'تصميم منشورات جذابة لمنصات التواصل الاجتماعي تعزز حضورك الرقمي',
+    link: '/portfolio#social-media'
+  },
+  {
+    icon: faFileAlt,
+    title: 'الفلايرات والبروشورات',
+    description: 'تصميم مطبوعات إعلانية مميزة تساعد في الترويج لنشاطك التجاري',
+    link: '/portfolio#print'
+  },
+  {
+    icon: faScroll,
+    title: 'رول أب ولافتات المعارض',
+    description: 'تصميم لافتات ورول أب احترافية لمعارض والمؤتمرات',
+    link: '/portfolio#roll-up'
+  },
+  {
+    icon: faUtensils,
+    title: 'قوائم الطعام (منيو)',
+    description: 'تصميم قوائم طعام جذابة واحترافية تعرض منتجاتك بشكل مميز',
+    link: '/portfolio#menu'
+  },
+  {
+    icon: faIdCard,
+    title: 'البطاقات الشخصية',
+    description: 'تصميم بطاقات أعمال احترافية تعزز هويتك المهنية',
+    link: '/portfolio#business-cards'
+  },
+  {
+    icon: faBook,
+    title: 'أغلفة الكتب',
+    description: 'تصميم أغلفة كتب احترافية تجذب القراء وتعكس محتوى الكتاب',
+    link: '/portfolio#book-covers'
+  },
+  {
+    icon: faEnvelopeOpen,
+    title: 'بطاقات الدعوة الإلكترونية',
+    description: 'تصميم دعوات إلكترونية مميزة لمختلف المناسبات',
+    link: '/portfolio#invitations'
+  },
+  {
+    icon: faAward,
+    title: 'الشهادات التقديرية',
+    description: 'تصميم شهادات تقديرية احترافية للمؤسسات والفعاليات',
+    link: '/portfolio#certificates'
+  },
+  {
+    icon: faAd,
+    title: 'اللوحات الإعلانية',
+    description: 'تصميم لوحات إعلانية وستاندات احترافية للمؤتمرات والفعاليات',
+    link: '/portfolio#advertising'
+  }
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [showAllServices, setShowAllServices] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const visibleServices = showAllServices ? services : services.slice(0, 3);
+
+  return (
+    <>
+      <section className="hero">
+        <h1>مصمم جرافيك محترف</h1>
+        <p>
+          أقدم تصاميم إبداعية تناسب احتياجاتك
+        </p>
+        <div className="hero-buttons">
+          <Link href="/contact" className="primary-btn">
+            احصل على تصميمك
+          </Link>
+          <a href="#services" className="secondary-btn">
+            استكشف خدماتي
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      <section id="services" className="services">
+        <div className="container">
+          <div className="section-header">
+            <h2>خدماتي</h2>
+            <p>مجموعة من الخدمات الاحترافية لتلبية احتياجاتك</p>
+          </div>
+          
+          <div className="services-grid">
+            {visibleServices.map((service, index) => (
+              <div 
+                key={index} 
+                className="service-card"
+                style={{
+                  transitionDelay: `${index * 0.1}s`
+                }}
+              >
+                <div className="service-icon">
+                  <FontAwesomeIcon icon={service.icon} />
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <hr className="service-divider" />
+                <Link href={service.link} className="learn-more">
+                  معرفة المزيد
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <div className="services-footer">
+            <button 
+              onClick={() => setShowAllServices(!showAllServices)}
+              id="showMoreServices" 
+              className="secondary-btn"
+            >
+              {showAllServices ? (
+                <>
+                  عرض أقل
+                  <FontAwesomeIcon icon={faChevronUp} className="icon-more" />
+                </>
+              ) : (
+                <>
+                  عرض المزيد
+                  <FontAwesomeIcon icon={faChevronDown} className="icon-more" />
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Testimonials />
+      <FAQ />
+    </>
   );
-}
+} 
