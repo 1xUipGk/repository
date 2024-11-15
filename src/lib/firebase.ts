@@ -1,34 +1,23 @@
-import { initializeApp, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
+// تهيئة Firebase فقط في جانب العميل
 let app;
-try {
-  app = getApp();
-} catch {
+let db;
+
+if (typeof window !== 'undefined') {
   app = initializeApp(firebaseConfig);
+  db = getDatabase(app);
 }
 
-export const auth = getAuth(app);
-export const storage = getStorage(app);
-export const database = getDatabase(app);
-
-export const uploadImageToFirebase = async (file: File): Promise<string> => {
-  const ref = storageRef(storage, `images/${Date.now()}_${file.name}`);
-  const snapshot = await uploadBytes(ref, file);
-  const url = await getDownloadURL(snapshot.ref);
-  return url;
-};
-
-export default app; 
+export { db }; 

@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { getDatabase, ref, push, set } from 'firebase/database';
-import { uploadToImgur, ImgurResponse } from '@/utils/imgur';
+import { ref, push, set } from 'firebase/database';
+import { uploadToImgur } from '@/utils/imgur';
+import { db } from '@/lib/firebase';
 
 interface TestimonialData {
   name: FormDataEntryValue | null;
@@ -23,7 +24,6 @@ interface ReviewFormProps {
 export default function ReviewForm({ onSubmit }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const db = getDatabase();
 
   const ratingTexts = [
     'بحاجة إلى تحسين',
