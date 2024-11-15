@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getDatabase, ref, push, set } from 'firebase/database';
-import { uploadToImgur } from '@/lib/imgur';
+import { uploadToImgur, ImgurResponse } from '@/lib/imgur';
 
 interface TestimonialData {
   name: FormDataEntryValue | null;
@@ -18,12 +18,6 @@ interface TestimonialData {
 
 interface ReviewFormProps {
   onSubmit: (data: TestimonialData) => void;
-}
-
-interface ImgurResponse {
-  data: {
-    link: string;
-  };
 }
 
 export default function ReviewForm({ onSubmit }: ReviewFormProps) {
@@ -58,7 +52,7 @@ export default function ReviewForm({ onSubmit }: ReviewFormProps) {
       const imageFile = formData.get('clientImage') as File;
       if (imageFile && imageFile.size > 0) {
         try {
-          const imgurData = await uploadToImgur(imageFile);
+          const imgurData: ImgurResponse = await uploadToImgur(imageFile);
           testimonialData.imageUrl = imgurData.data.link;
         } catch (error) {
           console.error('Error uploading image:', error);

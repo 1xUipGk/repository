@@ -1,4 +1,4 @@
-interface ImgurResponse {
+export interface ImgurResponse {
   data: {
     link: string;
   };
@@ -21,5 +21,5 @@ export const uploadToImgur = async (file: File): Promise<ImgurResponse> => {
   }
 
   const data = await response.json();
-  return data as ImgurResponse;
+  return data;
 }; 
