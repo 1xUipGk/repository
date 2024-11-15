@@ -70,4 +70,52 @@ body::after {
   .container {
     @apply max-w-7xl mx-auto px-4;
   }
+
+  .nav-link {
+    @apply text-secondary hover:text-primary transition-colors duration-300 
+           text-sm font-medium py-3 px-4 w-full text-center;
+  }
+
+  @media (min-width: 768px) {
+    .nav-link {
+      @apply w-auto py-2;
+    }
+  }
+
+  /* Sections */
+  section {
+    @apply py-16 sm:py-20 md:py-24;
+  }
+
+  .section-container {
+    @apply container mx-auto px-4;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply px-6 py-2 rounded-lg transition-colors duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-opacity-90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-opacity-90;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-card-bg rounded-lg p-6 border border-border;
+  }
+
+  /* Forms */
+  .form-input {
+    @apply w-full px-4 py-2 rounded-lg border border-border bg-card-bg 
+           focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium mb-2;
+  }
 }

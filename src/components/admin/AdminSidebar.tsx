@@ -8,9 +8,6 @@ import {
   faChartLine,
   faImages,
   faComments,
-  faBlog,
-  faNewspaper,
-  faTags,
   faUsers,
   faCog
 } from '@fortawesome/free-solid-svg-icons';
@@ -36,13 +33,6 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
       items: [
         { path: '/admin/works', icon: faImages, label: 'الأعمال' },
         { path: '/admin/testimonials', icon: faComments, label: 'التقييمات' },
-      ]
-    },
-    {
-      title: 'المدونة',
-      items: [
-        { path: '/admin/blog/posts', icon: faNewspaper, label: 'المقالات' },
-        { path: '/admin/blog/categories', icon: faTags, label: 'التصنيفات' },
       ]
     },
     {
