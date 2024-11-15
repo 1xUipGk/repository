@@ -1,5 +1,5 @@
-import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getDatabase, Database } from 'firebase/database';
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import { Database, getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,13 +14,17 @@ const firebaseConfig = {
 let app: FirebaseApp | undefined;
 let database: Database | null = null;
 
-if (typeof window !== 'undefined') {
-  try {
-    app = initializeApp(firebaseConfig);
-    database = getDatabase(app);
-  } catch (error) {
-    console.error('Firebase initialization error:', error);
+export function getFirebaseDB(): Database | null {
+  if (typeof window === 'undefined') return null;
+  
+  if (!database) {
+    try {
+      app = initializeApp(firebaseConfig);
+      database = getDatabase(app);
+    } catch (error) {
+      console.error('Firebase initialization error:', error);
+    }
   }
-}
-
-export const db = database; 
+  
+  return database;
+} 
