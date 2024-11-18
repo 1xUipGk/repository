@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build",
-    "deploy": "cross-env CACHE_DIR=temp next build && type nul > out\\.nojekyll && gh-pages --dist out --dotfiles true --cacheDir temp"
+    "deploy": "next build && push-dir --dir=out --branch=gh-pages --cleanup --verbose --force"
   },
   "dependencies": {
     "@firebase/app": "^0.x.x",
@@ -34,6 +33,7 @@
     "eslint-config-next": "13.5.6",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.31",
+    "push-dir": "^0.4.1",
     "tailwindcss": "^3.3.3",
     "typescript": "5.2.2"
   }
