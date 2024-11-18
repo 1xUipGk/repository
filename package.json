@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export",
+    "deploy": "npm run export && touch out/.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
-    "@firebase/app": "^0.9.29",
-    "@firebase/database": "^1.0.10",
+    "@firebase/app": "^0.x.x",
+    "@firebase/database": "^0.x.x",
     "@fortawesome/fontawesome-svg-core": "6.4.0",
     "@fortawesome/free-brands-svg-icons": "6.4.0",
     "@fortawesome/free-regular-svg-icons": "6.4.0",
@@ -19,7 +21,7 @@
     "@types/node": "18.18.0",
     "@types/react": "18.2.24",
     "@types/react-dom": "18.2.8",
-    "firebase": "^11.0.2",
+    "firebase": "^10.x.x",
     "next": "13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -29,6 +31,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.6",
+    "gh-pages": "^6.2.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "typescript": "5.2.2"
