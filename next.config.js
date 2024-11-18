@@ -6,6 +6,11 @@ const nextConfig = {
   },
   basePath: '/repository',
   assetPrefix: '/repository/',
+  swcMinify: false,
+  webpack: (config) => {
+    config.optimization.minimize = false;
+    return config;
+  }
 }
 
 module.exports = nextConfig

@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export",
-    "deploy": "npm run export && touch out/.nojekyll && gh-pages -d out -t true"
+    "export": "next build",
+    "deploy": "cross-env CACHE_DIR=temp next build && type nul > out\\.nojekyll && gh-pages --dist out --dotfiles true --cacheDir temp"
   },
   "dependencies": {
     "@firebase/app": "^0.x.x",
@@ -29,9 +29,10 @@
   "devDependencies": {
     "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.6",
-    "gh-pages": "^6.2.0",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "typescript": "5.2.2"
