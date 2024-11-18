@@ -4,8 +4,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/repository',
-  assetPrefix: '/repository/',
   swcMinify: false,
   webpack: (config) => {
     config.optimization.minimize = false;

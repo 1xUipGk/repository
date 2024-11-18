@@ -15,7 +15,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     }
 
     const data = await response.json();
-    
     return data.items.map((post: any) => ({
       id: post.id,
       title: post.title,
@@ -61,4 +60,4 @@ export async function getBlogPost(id: string) {
 function extractFirstImage(content: string): string {
   const match = content.match(/<img[^>]+src="([^">]+)"/);
   return match ? match[1] : '/images/blog/default.jpg';
-} 
+}

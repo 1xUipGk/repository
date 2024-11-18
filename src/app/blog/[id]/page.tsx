@@ -10,7 +10,7 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     console.error('Error generating static params:', error);
-    return []; // إرجاع مصفوفة فارغة في حالة الخطأ
+    return [];
   }
 }
 
