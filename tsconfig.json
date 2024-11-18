@@ -26,7 +26,8 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": ["@firebase/app", "@firebase/database"]
   },
   "include": [
     "next-env.d.ts",
