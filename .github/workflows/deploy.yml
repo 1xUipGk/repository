@@ -21,6 +21,8 @@ jobs:
 
     - name: Build
       run: npm run build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Add .nojekyll file
       run: touch out/.nojekyll
@@ -30,3 +32,4 @@ jobs:
       with:
         branch: gh-pages
         folder: out
+        token: ${{ secrets.GITHUB_TOKEN }}
